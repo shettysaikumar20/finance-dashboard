@@ -7,12 +7,11 @@ const DashboardContext = createContext();
 export const useDashboard = () => useContext(DashboardContext);
 
 export const DashboardProvider = ({ children }) => {
-  const [role, setRole] = useState('Viewer'); // 'Viewer' or 'Admin'
-  const [theme, setTheme] = useState('light'); // Banking is usually light mode default
-  const [activeTab, setActiveTab] = useState('Overview'); // 'Overview', 'Transactions', 'Analytics', 'Transfers', 'Cards', 'Settings'
+  const [role, setRole] = useState('Admin');
+  const [theme, setTheme] = useState('light');
   const [globalSearch, setGlobalSearch] = useState('');
-  const [chartTimeRange, setChartTimeRange] = useState('6M'); // '6M' or '1Y'
-  
+  const [chartTimeRange, setChartTimeRange] = useState('6M');
+
   const [transactions, setTransactions] = useState(() => {
     const saved = localStorage.getItem('finance_transactions');
     return saved ? JSON.parse(saved) : initialTransactions;
@@ -44,12 +43,10 @@ export const DashboardProvider = ({ children }) => {
     setTransactions(prev => prev.filter(t => t.id !== id));
   };
 
-  // Calculate totals
   const totalIncome = transactions.filter(t => t.amount > 0).reduce((acc, curr) => acc + curr.amount, 0);
   const totalExpense = transactions.filter(t => t.amount < 0).reduce((acc, curr) => acc + Math.abs(curr.amount), 0);
   const totalBalance = totalIncome - totalExpense;
 
-  // Category breakdown for expenses
   const expenseByCategory = transactions
     .filter(t => t.amount < 0)
     .reduce((acc, curr) => {
@@ -68,7 +65,6 @@ export const DashboardProvider = ({ children }) => {
     <DashboardContext.Provider value={{
       role, setRole,
       theme, toggleTheme,
-      activeTab, setActiveTab,
       globalSearch, setGlobalSearch,
       chartTimeRange, setChartTimeRange,
       transactions, addTransaction, deleteTransaction,

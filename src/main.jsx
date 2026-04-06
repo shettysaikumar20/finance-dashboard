@@ -1,13 +1,21 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import './index.css'
-import { DashboardProvider } from './context/DashboardContext.jsx'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
+import App from './App.jsx';
+import './index.css';
+import { AuthProvider } from './context/AuthContext.jsx';
+import { DashboardProvider } from './context/DashboardContext.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <DashboardProvider>
-      <App />
-    </DashboardProvider>
+    <BrowserRouter>
+      <AuthProvider>
+        <DashboardProvider>
+          <App />
+          <Analytics />
+        </DashboardProvider>
+      </AuthProvider>
+    </BrowserRouter>
   </React.StrictMode>,
-)
+);

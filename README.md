@@ -33,6 +33,7 @@ FinDash is a clean, interactive, and responsive finance dashboard built to track
    npm run dev
    ```
 4. **Open in Browser**: Navigate to `http://localhost:5173` (or the port provided by Vite).
+or open this link: https://finance-dashboard-nine-roan.vercel.app/
 
 ## Approach
 
